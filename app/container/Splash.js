@@ -106,7 +106,7 @@ componentDidMount() {
                 this.props.navigation.replace('AuthStack',{screen:'OnBoardingScreen'});
             }
         }
-    }, 300)
+    }, 3000)
 }
 
     render() {

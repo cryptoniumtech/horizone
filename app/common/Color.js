@@ -8,7 +8,7 @@ export default {
   google: "#d34836",
 
 
-  textColor:'#434343',
+  textColor:'#B9B8BC',
   fieldLabelColor:'#D5D5D5',
   textColorLight:'#747474',
 

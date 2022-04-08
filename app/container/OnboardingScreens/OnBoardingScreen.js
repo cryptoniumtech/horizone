@@ -7,6 +7,7 @@ import MyButtonComponent from "../../Components/MyButtonComponent";
 import Constants from "../../common/Constants";
 import Color from "../../common/Color";
 import ProgressiveDots from "./Components/ProgressiveDots";
+import ForwardBackButton from "./Components/ForwardBackButton";
 
 
 const onBoardingArray = [{
@@ -60,14 +61,15 @@ export default class OnBoardingScreen extends Component {
         return (
             <SafeAreaView style={{flex:1,backgroundColor:Color.primary,padding:20}}>
                 <View style={{flexDirection:'row',alignItems:'center'}}>
-                    { this.state.Selected<2?<MyButtonComponent onPress={()=>{
+                    <MyButtonComponent disable={this.state.Selected==2} onPress={()=>{
                         this.props.onBoardingComplete(), this.props.navigation.navigate("LoginScreen")
-                    }} title={'Skip'} extratextstyle={{paddingHorizontal:30, fontFamily:Constants.fontFamilyMedium,fontSize:12,paddingVertical:3,includeFontPadding:false}} extraviewstyle={{borderWidth:3,borderColor:'#B04041'}}/>:null}
+                    }} title={'Skip'} extratextstyle={{paddingHorizontal:30, fontFamily:Constants.fontFamilyMedium,fontSize:12,paddingVertical:3,includeFontPadding:false,color:this.state.Selected==2?'#000':'white'}} extraviewstyle={this.state.Selected==2?{backgroundColor:'#000000',borderWidth:3}:{borderWidth:3,borderColor:'#B04041'}}/>
                     <View style={{flex:1}}/>
 
                     <ProgressiveDots selectedIndex={this.state.Selected}/>
                 </View>
-                <PagerView ref={this.pager} style={{flex:1}} initialPage={0}>
+                <PagerView onPageSelected={(e)=>{
+                  this.setState({Selected:e?.nativeEvent?.position})}} ref={this.pager} style={{flex:1}} initialPage={0}>
                     <View key="1">
                         {this.Screen(0)}
                     </View>
@@ -78,8 +80,21 @@ export default class OnBoardingScreen extends Component {
                         {this.Screen(2)}
                     </View>
                 </PagerView>
+                <View style={{marginVertical:'5%',justifyContent:'center',alignItems:'center'}}>
+                <ForwardBackButton onBackPress={()=>{
+                    this.setState({Selected:(this.state.Selected-1)})
+                }} selectedIndex={this.state.Selected} onForwardPress={()=>{
+                    if (this.state.Selected<2){
+                        this.setState({Selected:(this.state.Selected+1)})
+                    }else{
+                        this.props.navigation.navigate('LoginScreen')
+                    }
 
 
+                }} />
+
+
+                </View>
 
             </SafeAreaView>
         );
@@ -91,8 +106,8 @@ export default class OnBoardingScreen extends Component {
 
             <View style={{flex: 1,alignItems:'center'}}>
                 <Image source={onBoardingArray[index].image} style={{
-                    height: '40%',
-                    width: undefined,
+                    height: undefined,
+                    width: '80%',
                     aspectRatio: 1,
                     marginTop: '15%',
                     alignSelf: 'center'
@@ -115,9 +130,7 @@ export default class OnBoardingScreen extends Component {
                     textAlign: 'center'
                 }}>{onBoardingArray[index].description}</Text>
 
-                <View style={{flex:1,backgroundColor:'red',justifyContent:'center'}}>
 
-                </View>
             </View>
 
 

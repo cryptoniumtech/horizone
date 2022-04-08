@@ -8,6 +8,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {navigationRef} from './NavigationService';
 import OnBoardingScreen from "../container/OnboardingScreens/OnBoardingScreen";
+import LoginScreen from "../container/Authentication/LoginScreen";
+import RegisterScreen from "../container/Authentication/RegisterScreen";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -47,9 +49,11 @@ function AuthStack() {
     return (
 
 
-        <Stack.Navigator initialRouteName='LoginScreen'>
+        <Stack.Navigator initialRouteName='OnBoardingScreen'>
 
             <Stack.Screen name={'OnBoardingScreen'} component={OnBoardingScreen} options={{headerShown: false}}/>
+            <Stack.Screen name={'LoginScreen'} component={LoginScreen} options={{headerShown: false}}/>
+            <Stack.Screen name={'RegisterScreen'} component={RegisterScreen} options={{headerShown: false}}/>
 
             {/*<Stack.Screen name={'LoginLandingScreen'} component={LoginLandingScreen} options={{headerShown: false}}/>*/}
             {/*<Stack.Screen name={'LoginScreen'} component={LoginScreen} options={{headerShown: false}}/>*/}
